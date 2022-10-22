@@ -1,0 +1,8 @@
+package paca_user;
+
+public class UserDAO {
+	private String name;
+	private String id;
+	private String pwd;
+	private String phone
+}

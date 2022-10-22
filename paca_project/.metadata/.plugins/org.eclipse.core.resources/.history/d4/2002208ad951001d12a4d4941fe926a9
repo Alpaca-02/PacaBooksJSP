@@ -1,0 +1,8 @@
+package paca_user;
+
+import javax.sql.DataSource;
+
+public class UserDAO {
+	private DataSource dataFactory
+
+}

@@ -1,0 +1,17 @@
+package paca_user;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+
+import javax.sql.DataSource;
+
+public class UserDAO {
+	// 톰캣 서버의 context.xml에서 resource를 가져와 처리
+	private DataSource dataFactory;
+	
+	private Connection conn;
+	
+	private PreparedStatement pstmt;
+
+	public UserDAO
+}

@@ -1,0 +1,55 @@
+package paca_user;
+
+import java.io.IOException;
+
+import javax.servlet.Servlet;
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+
+@WebServlet("/pacaUser/*")
+public class UserController extends HttpServlet {
+	
+
+
+	public void init(ServletConfig config) throws ServletException {
+		// TODO Auto-generated method stub
+	}
+
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doHandle(request, response);
+	}
+
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doHandle(request, response);
+	}
+	
+	protected void doHandle(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// 포워딩할 페이지 링크 변수
+		String nextPage=null;
+		
+		// 인코딩, 컨텐츠 타입
+		request.setCharacterEncoding("utf-8");
+		response.setContentType("text/html;charset=utf-8");
+		
+		// getPathInfo로 요청 url을 가져옴
+		String action=request.getPathInfo();
+		System.out.println("요청 : "+action);
+		
+		if(action.equals("/list.do")) {
+			
+		}else if(action.equals("/join.do")) {
+			// 요청 url이 회원가입창인 경우
+			nextPage = "/join.html";
+		}else if(action.equals("/addUser.do")) {
+			
+		}
+	}
+
+}

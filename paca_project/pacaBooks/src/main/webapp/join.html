@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원가입 | PacaBooks</title>
+
+    <!-- 파비콘 -->
+    <link rel="shortcut icon" href="images/paca_icon.ico">
+
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/join.css">
+
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <script src="js/join.js"></script>
+
+</head>
+<body>
+    <div id="wrapper">
+        <div id="logo">
+            <a href="index.html"><img src="images/title/PacaBooks-hor.png" alt=""></a>
+        </div>
+        <a href="login.html"><div id="login">로그인</div></a>
+
+        <!-- 회원가입 창 영역 -->
+        <section id="create">
+            <h2 class>회원가입</h2>
+            <!-- 임시 서블릿 경로 나중에 jSP로  변환시 수정-->
+            <form action="http://localhost:8090/pacaBooks/pacaUser/addUser.do" method="post" id="joinForm" name="joinForm">
+                <fieldset>
+                    <legend>회원가입 정보 입력 폼</legend>
+                    <p>
+                        <!--이름-->
+                        <input type="text" id="name" name="name" required placeholder="이름" autofocus>
+                    </p>
+                    <p>
+                        <!--아이디-->
+                        <input type="text" name="id" id="id" required placeholder="아이디" >
+                        <span class="find">사용 가능 ID 확인</span>
+                    </p>
+                    <p>
+                        <!--비밀번호-->
+                        <input type="password" id="pwd" name="pwd" required placeholder="비밀번호">
+                    </p>
+                    <p>
+                        <!--비밀번호 확인-->
+                        <input type="password" id="confirmPW" name="confirmPW" required placeholder="비밀번호 확인">
+                        <br><span class="con_PW_not"></span>
+                    </p>
+                    <p>
+                        <!--전화번호-->
+                        <input type="tel" id="phone" name="phone" maxlength="13"  placeholder="휴대전화">
+                    </p>
+                    <p>
+                        <!--이메일-->
+                        <input type="email" id="email" name="email" size="30" required placeholder="이메일">
+                    </p>
+                    <div class="adv">
+                        <p class="title">광고성 알림 수신 동의</p>
+                        <p class="radio">
+                            <span>이메일</span>
+                            <input type="radio" id="mailingOk" name="email_not" value="true" ><label for="mailingOk">예</label>
+                            <input type="radio" id="mailingNo" name="email_not" value="false" checked><label for="mailingNo">아니요</label>
+                        </p>
+                        <p class="radio">
+                            <span>SMS</span>
+                            <input type="radio" id="smsOk" name="ph_not" value="ture"><label for="smsOk">예</label>
+                            <input type="radio" id="smsNo" name="ph_not" value="false" checked><label for="smsNo">아니요</label>
+                        </p>
+                        
+                    </div>
+                    <div class="btnJoinArea">
+                        <button type="submit" class="btnOk">회원가입</button>
+                        <button type="reset" class="btnCancel">가입취소</button>
+                    </div>
+                </fieldset>
+                <input type="hidden" name="addMember" value="addMember">
+            </form>
+        </section>
+        <img src="images/alpaca/Alpaca.png" alt="AlpacaTitle" id="backPaca">
+        <!-- 푸터 영역 -->
+        <footer>
+            <div id="copyright">
+                <a href="#">&copy;PacaBooks</a>
+            </div>
+            <div id="support">
+                <a href="#">이용약관</a>
+                <a href="#">서포트</a>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>
