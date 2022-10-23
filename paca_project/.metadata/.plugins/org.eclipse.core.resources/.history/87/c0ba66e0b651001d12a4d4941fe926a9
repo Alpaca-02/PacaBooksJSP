@@ -1,5 +1,0 @@
-package paca_user;
-
-public class UserDAO {
-	private String id;
-}

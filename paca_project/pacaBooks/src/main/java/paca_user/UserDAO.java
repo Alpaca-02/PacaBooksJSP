@@ -119,5 +119,45 @@ public class UserDAO {
 	}
 	
 	
+	// 유저 로그인 메서드
+	public String userLogin(UserVO user) {
+		// 로그인 여부 값을 담을 boolean
+		String loggedIn = "false";
+		
+		try {
+			conn=dataFactory.getConnection();
+			
+			String id = user.getId();
+			String pwd = user.getPwd();
+			
+			
+			String query = "select pwd from usertbl where id = ?"; // 쿼리문 작성
+			pstmt = conn.prepareStatement(query);
+			// 아이디를 기준으로 pwd를 검색
+			pstmt.setString(1, id);
+			ResultSet rs = pstmt.executeQuery();
+			
+			rs.next();
+			// db에서 받아온 pwd를 가져온다.
+			String ck_pwd = rs.getString("pwd");
+
+			if(pwd.equals(ck_pwd)) {
+				loggedIn = "true";
+				
+			}else {
+				loggedIn = "false";
+			}
+			
+			rs.close();
+			pstmt.close();
+			conn.close();
+		}catch(Exception e) {
+			System.out.println("DB 로그인중 에러 : "+e.getMessage());
+		}
+		
+		return loggedIn;
+	}
+	
+	
 	
 }

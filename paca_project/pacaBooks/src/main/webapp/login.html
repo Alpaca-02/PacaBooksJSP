@@ -23,18 +23,18 @@
         <div id="login">
             <h2 class="hidden">로그인</h2>
             <a href="index.html"><img src="images/title.png" alt="title_logo"></a>
-            <form action="login.jsp" method="post" id="loginForm">
+            <form action="http://localhost:8090/pacaBooks/pacaUser/login.do" method="post" id="loginForm">
                 <fieldset>
                     <legend>회원 로그인 폼</legend>
                     <!-- 아이디와 패스워드 입력창에 개별로 <p>를 주어서 층을 구분 -->
                     <!--아이디 입력창-->
                     <p>
                         <!-- name => 백엔드에 줄 데이터 이름 / placeholder => 힌트 / required = 필수 요구사항 -->
-                        <input type="text" id="userId" name="userId" placeholder="아이디, 이메일" required autofocus>
+                        <input type="text" id="userId" name="id" placeholder="아이디, 이메일" required autofocus>
                     </p> 
                     <!--패스워드 입력창-->
                     <p>
-                        <input type="password" id="userPw" name="uesrPw" placeholder="비밀번호" required>
+                        <input type="password" id="userPw" name="pwd" placeholder="비밀번호" required>
                     </p>
                     <!-- 로그인 버튼 -->
                     <button type="submit">로그인</button>
