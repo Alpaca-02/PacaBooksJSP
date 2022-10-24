@@ -15,7 +15,7 @@ import javax.servlet.http.HttpSession;
 
 @WebServlet("/pacaUser/*")
 public class UserController extends HttpServlet {
-	UserDAO userDAO;  // Ã¹ ½ÇÇà½Ã DB°´Ã¼ ¼±¾ğ
+	UserDAO userDAO;  // DAOê°ì²´ë¥¼ ìƒì„±
 
 
 	public void init(ServletConfig config) throws ServletException {
@@ -33,88 +33,95 @@ public class UserController extends HttpServlet {
 	}
 	
 	protected void doHandle(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// Æ÷¿öµùÇÒ ÆäÀÌÁö ¸µÅ© º¯¼ö
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å© ï¿½ï¿½ï¿½ï¿½
 		String nextPage = "/index.html";
 		
-		// ÀÎÄÚµù, ÄÁÅÙÃ÷ Å¸ÀÔ
-		request.setCharacterEncoding("utf-8");
-		response.setContentType("text/html;charset=utf-8");
+		// ï¿½ï¿½ï¿½Úµï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å¸ï¿½ï¿½
+		response.setContentType("text/html; charset=utf-8");
 		
-		// getPathInfo·Î ¿äÃ» urlÀ» °¡Á®¿È
+		// getPathInfoë¡œ ìš”ì²­ URLì„ ê°€ì ¸ì˜¨ë‹¤
 		String action=request.getPathInfo();
-		System.out.println("¿äÃ» : "+action);
+		System.out.println("ìš”ì²­ URL : "+action);
 		
-		if(action.equals("/list.do")) {
-			
-		}else if(action.equals("/join.do")) {
-			// ¿äÃ» urlÀÌ È¸¿ø°¡ÀÔÃ¢ÀÎ °æ¿ì
-			nextPage = "/join.html";
-		}else if(action.equals("/addUser.do")) {
-			String name = request.getParameter("name");
-			String id = request.getParameter("id");
-			String pwd = request.getParameter("pwd");
-			String phone = request.getParameter("phone");
-			String email = request.getParameter("email");
-			
-			// radi¿¡¼­ true false·Î ¹®ÀÚ¿­À» ¹Ş¾Æ¼­ ÀúÀå (¿À¶óÅ¬Àº boolean Áö¿øX)
-			String ph_not = request.getParameter("ph_not");
-			String email_not = request.getParameter("email_not");
-			
-			System.out.println(ph_not);
-			System.out.println(email_not);
-			
-			
-			UserVO userVO = new UserVO(name, id, pwd, phone, email, ph_not, email_not);
-			userDAO.addUser(userVO);
-		}else if(action.equals("/login.do")) {
-			// ¿äÃ» urlÀÌ ·Î±×ÀÎÀÎ °æ¿ì
-			
-			//¼¼¼Ç Á¤º¸¸¦ °¡Á®¿È 
-			HttpSession session = request.getSession();
-			System.out.println("¼¼¼Ç ID : " + session.getId());
-			
-			String id = request.getParameter("id");
-			String pwd = request.getParameter("pwd");
-			
-			UserVO userVO = new UserVO();
-			userVO.setId(id);
-			userVO.setPwd(pwd);
-			// À¯Àú ·Î±×ÀÎ ¸Ş¼­µå ½ÇÇà
-			String loggedIn = userDAO.userLogin(userVO);
-			
-			if(loggedIn.equals("true")) {
-				session.setAttribute("id", id);
-			}
-			session.setAttribute("loggedIn", loggedIn);
-			
-			// ·Î±×ÀÎ ¿©ºÎ ÀÓ½Ã Ãâ·Â
-//			System.out.println(session.getAttribute("loggedIn"));
-			
-			nextPage="index.html";
-
-		}else if(action.equals("/myPage.do")) {
-			// ¸¶ÀÌÆäÀÌÁö ¹öÆ°À» ´­·¶À» ¶§
-			
-			HttpSession session = request.getSession();
-			
-			// ¼¼¼Ç¿¡¼­ ·Î±×ÀÎ ¿©ºÎ¸¦ °¡Á®¿È
-			String loggedIn = (String)session.getAttribute("loggedIn");
-			
-			System.out.println(loggedIn);
-			
-			if(loggedIn.equals("ture")) {
-				nextPage="/mypage.html";
+		try {
+			if(action.equals("/list.do")) {
+				
+			}else if(action.equals("/join.do")) {
+				// ï¿½ï¿½Ã» urlï¿½ï¿½ È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã¢ï¿½ï¿½ ï¿½ï¿½ï¿½
+				nextPage = "/join.html";
+			}else if(action.equals("/addUser.do")) {
+				String name = request.getParameter("name");
+				String id = request.getParameter("id");
+				String pwd = request.getParameter("pwd");
+				String phone = request.getParameter("phone");
+				String email = request.getParameter("email");
+				
+				// radiï¿½ï¿½ï¿½ï¿½ true falseï¿½ï¿½ ï¿½ï¿½ï¿½Ú¿ï¿½ï¿½ï¿½ ï¿½Ş¾Æ¼ï¿½ ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½Å¬ï¿½ï¿½ boolean ï¿½ï¿½ï¿½ï¿½X)
+				String ph_not = request.getParameter("ph_not");
+				String email_not = request.getParameter("email_not");
+				
+				System.out.println(ph_not);
+				System.out.println(email_not);
+				
+				
+				UserVO userVO = new UserVO(name, id, pwd, phone, email, ph_not, email_not);
+				userDAO.addUser(userVO);
+			}else if(action.equals("/login.do")) {
+				// ë¡œê·¸ì¸ì„ í–ˆì„ê²½ìš°
+				
+				//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
+				HttpSession session = request.getSession();
+				System.out.println("ì„¸ì…˜ ID : " + session.getId());
+				
+				String id = request.getParameter("id");
+				String pwd = request.getParameter("pwd");
+				
+				UserVO userVO = new UserVO();
+				userVO.setId(id);
+				userVO.setPwd(pwd);
+				// ê³„ì • ì¡´ì¬ ì—¬ë¶€ë¥¼ í™•ì¸ë°›ìŒ
+				String loggedIn = userDAO.userLogin(userVO);
+				
+				if(loggedIn.equals("true")) {
+					session.setAttribute("id", id);
+				}
+				session.setAttribute("loggedIn", loggedIn);
+				
+				//ë¡œê·¸ì¸ëœ ê³„ì •, ë¡œê·¸ì¸ ì—¬ë¶€ë¥¼ í•œë²ˆ ì¬ í™•ì¸
+				System.out.println(session.getAttribute("id"));
+				System.out.println(session.getAttribute("loggedIn"));
+				if(Boolean.parseBoolean(loggedIn)) {
+					// ë¡œê·¸ì¸ì´ ë˜ì—ˆì„ ê²½ìš° ë©”ì¸ë©”ë‰´ë¡œ ì´ë™
+					response.sendRedirect("/pacaBooks/index.html");
+				}else {
+					nextPage="/login.jsp";
+				}
+	
+			}else if(action.equals("/myPage.do")) {
+				// ë§ˆì´í˜ì´ì§€ ì•„ì´ì½˜ì„ í´ë¦­í•œ ê²½ìš°
+				
+				HttpSession session = request.getSession();
+				
+				// ì„¸ì…˜ì—ì„œ ë¡œê·¸ì¸ì´ ë˜ì—ˆëŠ”ì§€ í™•ì¸
+				String loggedIn = (String)session.getAttribute("loggedIn");
+				
+				System.out.println(loggedIn);
+				
+				if(loggedIn.equals("ture")) {
+					response.sendRedirect("/mypage.html");
+				}else {
+					nextPage="/login.jsp";
+				}
 			}else {
-				nextPage="/login.html";
+				response.sendRedirect("/index.html");
 			}
-		}else {
-			nextPage="/index.html";
+			// nextPageï¿½ï¿½ ï¿½ï¿½Å©ï¿½ï¿½ ï¿½ï¿½ï¿½Îµï¿½
+			RequestDispatcher dispatcher = request.getRequestDispatcher(nextPage);
+			System.out.println(nextPage);
+			dispatcher.forward(request, response);
+		}catch (Exception e) {
+			// TODO: handle exception
 		}
-		
-		// nextPageÀÇ ¸µÅ©¿¡ ¹ÙÀÎµù
-		RequestDispatcher dispatcher = request.getRequestDispatcher(nextPage);
-		System.out.println(nextPage);
-		dispatcher.forward(request, response);
 	}
 
 }
