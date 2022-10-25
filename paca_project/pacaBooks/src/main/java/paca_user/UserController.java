@@ -105,17 +105,17 @@ public class UserController extends HttpServlet {
 				// 세션에서 로그인이 되었는지 확인
 				String loggedIn = (String)session.getAttribute("loggedIn");
 				
-				System.out.println(loggedIn);
-				
-				if(loggedIn.equals("ture")) {
-					response.sendRedirect("/mypage.html");
+				System.out.println(loggedIn+"123");
+				boolean login = Boolean.parseBoolean(loggedIn);
+				if(login) {
+					response.sendRedirect("/pacaBooks/mypage.html");
 				}else {
 					nextPage="/login.jsp";
 				}
 			}else {
 				response.sendRedirect("/index.html");
 			}
-			// nextPage�� ��ũ�� ���ε�
+			// nextPage에 받아온 링크를 포워드
 			RequestDispatcher dispatcher = request.getRequestDispatcher(nextPage);
 			System.out.println(nextPage);
 			dispatcher.forward(request, response);
