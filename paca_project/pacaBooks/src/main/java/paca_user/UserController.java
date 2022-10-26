@@ -69,7 +69,7 @@ public class UserController extends HttpServlet {
 			}else if(action.equals("/login.do")) {
 				// 로그인을 했을경우
 				
-				//���� ������ ������ 
+				//세션이 없을경우 세션을 생성
 				HttpSession session = request.getSession();
 				System.out.println("세션 ID : " + session.getId());
 				
@@ -108,7 +108,7 @@ public class UserController extends HttpServlet {
 				System.out.println(loggedIn+"123");
 				boolean login = Boolean.parseBoolean(loggedIn);
 				if(login) {
-					response.sendRedirect("/pacaBooks/mypage.html");
+					nextPage="mypage.jsp";
 				}else {
 					nextPage="/login.jsp";
 				}

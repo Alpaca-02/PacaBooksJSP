@@ -12,7 +12,7 @@ import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
 public class UserDAO {
-	// ÅèÄ¹ ¼­¹öÀÇ context.xml¿¡¼­ resource¸¦ °¡Á®¿Í Ã³¸®
+	// ï¿½ï¿½Ä¹ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ context.xmlï¿½ï¿½ï¿½ï¿½ resourceï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½
 	private DataSource dataFactory;
 	
 	private Connection conn;
@@ -21,28 +21,28 @@ public class UserDAO {
 
 	public UserDAO() {
 		try {
-			// ÄÁÅØ½ºÆ® ÃÊ±âÈ­
+			// ï¿½ï¿½ï¿½Ø½ï¿½Æ® ï¿½Ê±ï¿½È­
 			Context ctx = new InitialContext();
-			// ÀÚ¹Ù È¯°æ±¸¼º Á¤º¸ Á¤ÀÇ
+			// ï¿½Ú¹ï¿½ È¯ï¿½æ±¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			Context envContext = (Context)ctx.lookup("java:/comp/env");
 			
-			// ¿À¶óÅ¬ ¿¬µ¿
+			// ï¿½ï¿½ï¿½ï¿½Å¬ ï¿½ï¿½ï¿½ï¿½
 			dataFactory = (DataSource)envContext.lookup("jdbc/oracle");
 		}catch(Exception e) {
-			System.out.println("DB¿¬µ¿ ¿À·ù : "+ e.getMessage());
+			System.out.println("DBï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ : "+ e.getMessage());
 		}
 	}
 	
-	// È¸¿øÁ¤º¸ Á¶È¸ ¸Ş¼­µå
+	// ìœ ì € ë¦¬ìŠ¤íŠ¸ë¥¼ ê°€ì ¸ì˜´
 	public List<UserVO> listUsers(){
 		List<UserVO> usersList = new ArrayList();
 		try {
 			conn = dataFactory.getConnection();
-			// Äõ¸®¹®
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			String query = "select * from usertbl order by joinDate desc";
 			
 			pstmt = conn.prepareStatement(query);
-			ResultSet rs = pstmt.executeQuery(); // Äõ¸®¹® ½ÇÇà
+			ResultSet rs = pstmt.executeQuery(); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			
 			while(rs.next()) {
 				String name = rs.getString("name");
@@ -58,9 +58,9 @@ public class UserDAO {
 				
 				String isAdmin = rs.getString("isAdmin");
 				
-				// UserVO °´Ã¼ »ı¼º
+				// UserVO ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½
 				UserVO userVO = new UserVO(name, id, pwd, phone, email, joinDate, ph_not, email_not, isAdmin);
-				// °´Ã¼¸¦À§¿¡¼­ ¸¸µç ¸®½ºÆ®¿¡ ´ãÀ½
+				// ï¿½ï¿½Ã¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 				usersList.add(userVO);
 			}
 			rs.close();
@@ -68,16 +68,16 @@ public class UserDAO {
 			conn.close();
 			
 		}catch(Exception e) {
-			System.out.println("DBÁ¶È¸Áß ¿À·ù ¹ß»ı" + e.getMessage());
+			System.out.println("DBï¿½ï¿½È¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ß»ï¿½" + e.getMessage());
 		}
 		return usersList;
 		
 	}
 	
-	// À¯Àú µî·Ï ¸Ş¼­µå
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ş¼ï¿½ï¿½ï¿½
 	public void addUser(UserVO user) {
 		try {
-			// DB¿¬°á
+			// DBï¿½ï¿½ï¿½ï¿½
 			conn=dataFactory.getConnection();
 			
 			String name = user.getName();
@@ -89,11 +89,11 @@ public class UserDAO {
 			
 			String ph_not = user.getPh_not();
 			String email_not = user.getEmail_not();
-			// À¯Àú °èÁ¤»ı¼ºÀÌ±â¿¡ ¾îµå¹ÎÀº false·Î 
+			// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì±â¿¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ falseï¿½ï¿½ 
 			String isAdmin = "false";
 			
 			String query = "insert into usertbl (name, id, pwd, phone, email, ph_not, email_not, isAdmin)"
-					+ " values (?, ?, ?, ?, ?, ?, ? ,?)";  // Äõ¸®¹® ÀÛ¼º
+					+ " values (?, ?, ?, ?, ?, ?, ? ,?)";  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Û¼ï¿½
 			
 			pstmt = conn.prepareStatement(query);
 			
@@ -108,20 +108,20 @@ public class UserDAO {
 			
 			pstmt.setString(8, isAdmin);
 			
-			pstmt.executeUpdate();  // Äõ¸®¹® ½ÇÇà
+			pstmt.executeUpdate();  // ì¿¼ë¦¬ë¬¸ ì‹¤í–‰
 			
 			conn.close();
 			pstmt.close();
 			
 		}catch(Exception e) {
-			System.out.println("DBÀ¯Àú µî·ÏÁß ¿À·ù¹ß»ı : "+e.getMessage());
+			System.out.println("DBï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ß»ï¿½ : "+e.getMessage());
 		}
 	}
 	
 	
-	// À¯Àú ·Î±×ÀÎ ¸Ş¼­µå
+	// ìœ ì € ë¡œê·¸ì¸ ë©”ì„œë“œ
 	public String userLogin(UserVO user) {
-		// ·Î±×ÀÎ ¿©ºÎ °ªÀ» ´ãÀ» boolean
+		// ë¡œê·¸ì¸ ê¸°ë³¸ê°’ì— falseë¥¼ ë‹´ìŒ
 		String loggedIn = "false";
 		
 		try {
@@ -131,14 +131,14 @@ public class UserDAO {
 			String pwd = user.getPwd();
 			
 			
-			String query = "select pwd from usertbl where id = ?"; // Äõ¸®¹® ÀÛ¼º
+			String query = "select pwd from usertbl where id = ?"; // í•´ë‹¹ idì˜ pwdë¥¼ ê°€ì ¸ì˜´
 			pstmt = conn.prepareStatement(query);
-			// ¾ÆÀÌµğ¸¦ ±âÁØÀ¸·Î pwd¸¦ °Ë»ö
+			// idë¥¼ ì¿¼ë¦¬ë¬¸ì— ë‹´ìŒ
 			pstmt.setString(1, id);
 			ResultSet rs = pstmt.executeQuery();
 			
 			rs.next();
-			// db¿¡¼­ ¹Ş¾Æ¿Â pwd¸¦ °¡Á®¿Â´Ù.
+			// ì…ë ¥í•œ pwdê°€ í•´ë‹¹ ê³„ì •ì˜ pwdì™€ ì¼ì¹˜í•˜ëŠ”ì§€ í™•ì¸
 			String ck_pwd = rs.getString("pwd");
 
 			if(pwd.equals(ck_pwd)) {
@@ -152,10 +152,48 @@ public class UserDAO {
 			pstmt.close();
 			conn.close();
 		}catch(Exception e) {
-			System.out.println("DB ·Î±×ÀÎÁß ¿¡·¯ : "+e.getMessage());
+			System.out.println("DB ï¿½Î±ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ : "+e.getMessage());
 		}
 		
 		return loggedIn;
+	}
+	
+	// idë¥¼ Stringìœ¼ë¡œ ë°›ì•„ì˜¤ë©´ ìœ ì €ì •ë³´ë¥¼ VOë¡œ ë‹´ì•„ì£¼ëŠ” ë©”ì„œë“œ
+	public UserVO userSelect(String id) {
+		UserVO userVO = new UserVO();
+		try {
+			conn = dataFactory.getConnection();
+			
+			String query = "select * from usertbl where id=?"; //ì¿¼ë¦¬ë¬¸ ì‘ì„±
+			
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, id);
+			
+			ResultSet rs = pstmt.executeQuery();
+			String _id = rs.getString("id");
+			String _pwd = rs.getString("pwd");
+			String _name = rs.getString("name");
+			String _phone = rs.getString("phone");
+			String _email = rs.getString("email");
+			Date _joinDate = rs.getDate("joinDate");
+			String _ph_not = rs.getString("ph_not");
+			String _email_not = rs.getString("email_not");
+			
+			userVO.setId(_id);
+			userVO.setPwd(_pwd);
+			userVO.setName(_name);
+			userVO.setPhone(_phone);
+			userVO.setEmail(_email);
+			userVO.setJoinDate(_joinDate);
+			userVO.setPh_not(_ph_not);
+			userVO.setEmail_not(_email_not);
+			
+			
+		}catch(Exception e) {
+			System.out.println("DB ìœ ì €ì •ë³´ ì¡°íšŒì¤‘ ì—ëŸ¬ : "+ e.getMessage());
+		}
+		
+		return userVO;
 	}
 	
 	
